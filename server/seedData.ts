@@ -1,0 +1,1280 @@
+import { Category, Product, SiteSettings } from "../src/types";
+
+export const initialCategories: Category[] = [
+  {
+    "id": "cat-sofas",
+    "name": "Sofas",
+    "slug": "sofas",
+    "description": "Sculptural modular sectionals, curved architectural lounges, and handcrafted Italian leather seating.",
+    "image": "/images/grand_modular_lounge_1790143529290.jpg",
+    "itemCount": 12
+  },
+  {
+    "id": "cat-chairs",
+    "name": "Chairs",
+    "slug": "chairs",
+    "description": "Sculptural dining chairs, curved bouclé seats, hand-stitched leather silhouettes, and mid-century modern lounge armchairs.",
+    "image": "/images/teal_velvet_chairs_1790144012592.jpg",
+    "itemCount": 5
+  },
+  {
+    "id": "cat-tables",
+    "name": "Tables",
+    "slug": "tables",
+    "description": "Architectural dining suites, sculptural marble pedestals, and fluted handcrafted coffee tables.",
+    "image": "/images/apex_marble_table_1790144909744.jpg",
+    "itemCount": 8
+  }
+];
+
+export const initialProducts: Product[] = [
+  {
+    "id": "prod-grand-horizon-suite",
+    "name": "Grand Horizon U-Modular Living Suite",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 4850,
+    "oldPrice": 5600,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 18,
+    "images": [
+      "/images/grand_modular_lounge_1790143529290.jpg"
+    ],
+    "description": "Conceived for grand penthouse salons and high-ceiling residences. A bespoke U-shaped modular sectional configuration featuring built-in low timber end-consoles, deep dual-density seating wrapped in sand bouclé, and complemented by a monolithic Calacatta marble slab table.",
+    "material": "Waterproof Italian Bouclé, Solid Walnut & Calacatta Stone",
+    "color": "Sand Dune & Ebonized Walnut",
+    "availableColors": [
+      "Sand Dune & Ebonized Walnut",
+      "Obsidian Noir",
+      "Warm Ivory"
+    ],
+    "width": "380 cm",
+    "height": "78 cm",
+    "depth": "320 cm",
+    "weight": "185 kg",
+    "availableSizes": [
+      "Full U-Ensemble (380x320 cm)",
+      "L-Chaise Configuration (320x240 cm)"
+    ],
+    "stock": 4,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Configuration": "U-Shaped 5-piece modular with dual side consoles",
+      "Cushioning": "High-resilience foam core with hypoallergenic down wrap",
+      "Frame": "Kiln-dried reinforced beech and carbon steel bracing",
+      "Warranty": "10-Year Structural Guarantee"
+    },
+    "reviews": [
+      {
+        "id": "rev-u1",
+        "author": "Julian Thorne",
+        "rating": 5,
+        "date": "2026-09-10",
+        "comment": "The scale and presence of this U-sectional in our living salon is unmatched. Outstanding craftsmanship.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-01T10:00:00Z"
+  },
+  {
+    "id": "prod-aura-curva-sectional",
+    "name": "Aura Curva Low-Profile Modular Sectional",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 3490,
+    "oldPrice": 3950,
+    "discount": 12,
+    "rating": 4.9,
+    "reviewsCount": 27,
+    "images": [
+      "/images/curved_boucle_sofa_1790143541607.jpg"
+    ],
+    "description": "Sculpted with organic flowing contours and generous sweeping curvature. Upholstered in tactile heavy textured warm ivory bouclé with an ultra-low ground-hugging profile designed for contemporary architectural spaces.",
+    "material": "Textured Heavy Bouclé & Solid Birch Subframe",
+    "color": "Warm Ivory",
+    "availableColors": [
+      "Warm Ivory",
+      "Muted Charcoal",
+      "Chalk White"
+    ],
+    "width": "340 cm",
+    "height": "72 cm",
+    "depth": "180 cm",
+    "weight": "112 kg",
+    "availableSizes": [
+      "3-Piece Curved (300 cm)",
+      "4-Piece Grand Curved (340 cm)"
+    ],
+    "stock": 6,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Curvature": "Organic 135° soft-angled sweep",
+      "Suspension": "German pocket-coil matrix with elastic webbing",
+      "Upholstery": "High-durability 80,000 Martindale rubbed bouclé"
+    },
+    "reviews": [
+      {
+        "id": "rev-u2",
+        "author": "Elena Rostova",
+        "rating": 5,
+        "date": "2026-09-12",
+        "comment": "The organic curves bring such calming balance into the room. Gorgeous texture and comfort.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-03T11:00:00Z"
+  },
+  {
+    "id": "prod-tufted-cloud-modular",
+    "name": "Tufted Block Cloud Modular Sofa",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 2890,
+    "oldPrice": 3280,
+    "discount": 12,
+    "rating": 4.9,
+    "reviewsCount": 34,
+    "images": [
+      "/images/tufted_cloud_sofa_1790143551351.jpg"
+    ],
+    "description": "Iconic Italian-inspired cubic grid tufting with deep pull buttons creating an ultra-soft cloud aesthetic. Each module can be freely rearranged or latched together using concealed military-grade steel toggle fasteners.",
+    "material": "Belgian Flax Linen & Multi-Layer Cloud Memory Foam",
+    "color": "Pure Alabaster",
+    "availableColors": [
+      "Pure Alabaster",
+      "Cloud Fog",
+      "Midnight Slate"
+    ],
+    "width": "280 cm",
+    "height": "70 cm",
+    "depth": "105 cm",
+    "weight": "84 kg",
+    "availableSizes": [
+      "3-Seater Linear (280 cm)",
+      "4-Seater Deep Lounge (360 cm)"
+    ],
+    "stock": 9,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Tufting": "Deep diamond-biscuit hand tufting with reinforced anchors",
+      "Modularity": "Concealed steel bayonet interlocking joints",
+      "Foam": "Ultra-soft micro-pocket memory foam layered with duck down"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-05T09:00:00Z"
+  },
+  {
+    "id": "prod-kyoto-japandi-sofa",
+    "name": "Kyoto Minimalist Lowline Lounge Sofa",
+    "category": "Sofas",
+    "brand": "AURA Minimal",
+    "price": 2250,
+    "oldPrice": 2600,
+    "discount": 13,
+    "rating": 4.8,
+    "reviewsCount": 19,
+    "images": [
+      "/images/japandi_low_sofa_1790143564241.jpg"
+    ],
+    "description": "Refined Japandi minimalism with geometric low-slung armrests, seamless continuous bench cushion, and loose lumbar pillows. Designed to harmonize with sunlit minimalist interiors and natural materials.",
+    "material": "Natural Washed Flax Linen & Kiln-Dried White Oak",
+    "color": "Oat Ecru",
+    "availableColors": [
+      "Oat Ecru",
+      "Stone Wash",
+      "Smoked Taupe"
+    ],
+    "width": "240 cm",
+    "height": "68 cm",
+    "depth": "100 cm",
+    "weight": "72 kg",
+    "availableSizes": [
+      "3-Seater (240 cm)",
+      "2.5-Seater (210 cm)"
+    ],
+    "stock": 8,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Design Philosophy": "Wabi-sabi architectural lowline balance",
+      "Removable Covers": "Fully removable dry-cleanable slipcovers",
+      "Origin": "Handcrafted in Kyoto Studio Atelier"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-08T14:00:00Z"
+  },
+  {
+    "id": "prod-heritage-cognac-sectional",
+    "name": "Heritage Cognac Saddle Leather Chaise Sectional",
+    "category": "Sofas",
+    "brand": "AURA Heritage",
+    "price": 3950,
+    "oldPrice": 4500,
+    "discount": 12,
+    "rating": 5,
+    "reviewsCount": 41,
+    "images": [
+      "/images/cognac_leather_sofa_1790143577250.jpg"
+    ],
+    "description": "Artisan handcrafted L-shape sectional clad in full-grain vegetable-tanned Italian saddle leather in warm caramel cognac. Supported on tapered solid American walnut feet with French seam edge stitching.",
+    "material": "Full-Grain Italian Saddle Leather & Solid American Walnut",
+    "color": "Cognac Caramel",
+    "availableColors": [
+      "Cognac Caramel",
+      "Dark Espresso",
+      "Vintage Saddle"
+    ],
+    "width": "295 cm",
+    "height": "82 cm",
+    "depth": "175 cm (Chaise)",
+    "weight": "120 kg",
+    "availableSizes": [
+      "Left-Facing Chaise (295 cm)",
+      "Right-Facing Chaise (295 cm)"
+    ],
+    "stock": 5,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": false,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Leather Grade": "Grade-A vegetable-tanned full-grain aniline hide",
+      "Legs": "Solid American black walnut with protective brass ferrules",
+      "Patina": "Natural wax finish that deepens with age and wear"
+    },
+    "reviews": [
+      {
+        "id": "rev-u3",
+        "author": "Marcus Brody",
+        "rating": 5,
+        "date": "2026-09-14",
+        "comment": "The rich leather smell and hand-feel are phenomenal. Beautiful warm focal point.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-10T16:00:00Z"
+  },
+  {
+    "id": "prod-verona-channel-velvet",
+    "name": "Verona Channel-Tufted Biscuit Velvet Sofa",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 2750,
+    "oldPrice": 3100,
+    "discount": 11,
+    "rating": 4.9,
+    "reviewsCount": 23,
+    "images": [
+      "/images/channel_velvet_sofa_1790143587907.jpg"
+    ],
+    "description": "A rich sensory statement piece featuring vertical channel quilting and pillowed bolster wing arms. Upholstered in lustrous, ultra-soft micro-velvet that shifts tone under architectural lighting.",
+    "material": "High-Pile Suede Velvet & Cold-Cured Foam Core",
+    "color": "Sand Dune Beige",
+    "availableColors": [
+      "Sand Dune Beige",
+      "Cobalt Shadow",
+      "Graphite Charcoal"
+    ],
+    "width": "260 cm",
+    "height": "76 cm",
+    "depth": "102 cm",
+    "weight": "79 kg",
+    "availableSizes": [
+      "Grand 3-Seater (260 cm)",
+      "Compact 2-Seater (210 cm)"
+    ],
+    "stock": 7,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Channel Construction": "Individual sewn fluted baffle channels prevent sagging",
+      "Bolsters": "Fixed sculpted cylindrical arm pillows",
+      "Base": "Recessed shadow-gap plinth base"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-15T12:00:00Z"
+  },
+  {
+    "id": "prod-aetheria-teal-velvet-chairs",
+    "name": "Aetheria Chevron Velvet Dining Suite (Set of 6)",
+    "category": "Chairs",
+    "brand": "AURA Atelier",
+    "price": 1850,
+    "oldPrice": 2200,
+    "discount": 16,
+    "rating": 5,
+    "reviewsCount": 15,
+    "images": [
+      "/images/teal_velvet_chairs_1790144012592.jpg"
+    ],
+    "description": "Curated ensemble of 6 ergonomic dining chairs enveloped in slate teal-blue velvet with subtle herringbone quilted backs, mounted on tapered black carbon steel legs. Paired with a modern extendable ceramic dining table aesthetic.",
+    "material": "Stain-Resistant Italian Velvet & Black Carbon Steel",
+    "color": "Slate Teal & Matte Black",
+    "availableColors": [
+      "Slate Teal & Matte Black",
+      "Midnight Emerald",
+      "Champagne Beige"
+    ],
+    "width": "56 cm",
+    "height": "86 cm",
+    "depth": "58 cm",
+    "weight": "7.8 kg (each)",
+    "availableSizes": [
+      "Set of 4 Chairs",
+      "Set of 6 Chairs",
+      "Set of 8 Chairs"
+    ],
+    "stock": 8,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Upholstery": "Triple-density resilient foam clad in stain-resistant velvet",
+      "Structure": "Welded laser-cut steel with electrostatic matte black coating",
+      "Ergonomics": "Contoured lumbar support with 105° relaxed seating angle"
+    },
+    "reviews": [
+      {
+        "id": "rev-c1",
+        "author": "Sophie Laurent",
+        "rating": 5,
+        "date": "2026-09-18",
+        "comment": "The teal velvet feels luxurious and the chevron stitching is pure sophistication.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-20T10:00:00Z"
+  },
+  {
+    "id": "prod-sola-saddle-leather-chairs",
+    "name": "Sola Minimalist Saddle Leather Dining Chairs (Set of 6)",
+    "category": "Chairs",
+    "brand": "AURA Minimal",
+    "price": 1980,
+    "oldPrice": 2350,
+    "discount": 16,
+    "rating": 4.9,
+    "reviewsCount": 22,
+    "images": [
+      "/images/tan_leather_chairs_1790144028448.jpg"
+    ],
+    "description": "Architectural dining chairs with cylindrical wrap-around back bolsters and circular cushioned seats clad in cognac saddle leather. Designed with a floating minimalist profile that complements round stone and marble tables.",
+    "material": "Full-Grain Saddle Tan Leather & Reinforced Black Steel",
+    "color": "Cognac Tan",
+    "availableColors": [
+      "Cognac Tan",
+      "Desert Dune",
+      "Ebony Noir"
+    ],
+    "width": "52 cm",
+    "height": "77 cm",
+    "depth": "54 cm",
+    "weight": "6.9 kg (each)",
+    "availableSizes": [
+      "Set of 4 Chairs",
+      "Set of 6 Chairs"
+    ],
+    "stock": 10,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Backrest": "Sculpted cylindrical bolster with integrated steel core",
+      "Leather": "Wax-finished full-grain aniline hide with edge-burnished trim",
+      "Legs": "Ultra-slim solid steel rods with concealed acoustic floor glides"
+    },
+    "reviews": [
+      {
+        "id": "rev-c2",
+        "author": "Kenji Sato",
+        "rating": 5,
+        "date": "2026-09-19",
+        "comment": "Incredible design purity. Fits seamlessly around our round dining table.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-21T09:00:00Z"
+  },
+  {
+    "id": "prod-arborea-bronze-coral-chairs",
+    "name": "Arborea Sculptural Bronze Coral Dining Chairs (Set of 4)",
+    "category": "Chairs",
+    "brand": "AURA Atelier",
+    "price": 2650,
+    "oldPrice": 3100,
+    "discount": 15,
+    "rating": 5,
+    "reviewsCount": 11,
+    "images": [
+      "/images/coral_branch_chairs_1790144042474.jpg"
+    ],
+    "description": "Museum-caliber dining chairs celebrating organic biophilic forms. Cast bronze frames featuring branch-and-coral filigree backrests with plush alabaster velvet seat cushions.",
+    "material": "Cast Sculpted Bronze & French Alabaster Velvet",
+    "color": "Antique Bronze & Alabaster",
+    "availableColors": [
+      "Antique Bronze & Alabaster",
+      "Gilded Brass & Obsidian"
+    ],
+    "width": "54 cm",
+    "height": "92 cm",
+    "depth": "55 cm",
+    "weight": "11.2 kg (each)",
+    "availableSizes": [
+      "Set of 4 Chairs",
+      "Set of 6 Chairs"
+    ],
+    "stock": 3,
+    "availability": "low_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Casting Method": "Lost-wax cast bronze alloy with hand-patinated finish",
+      "Seat Cushion": "Detachable high-density foam wrapped in dry-clean velvet",
+      "Edition": "Limited Atelier production batch (Only 20 sets fabricated)"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-21T12:00:00Z"
+  },
+  {
+    "id": "prod-nordic-dune-curved-oak-chairs",
+    "name": "Nordic Dune Curved Oak & Bouclé Dining Chairs (Set of 6)",
+    "category": "Chairs",
+    "brand": "AURA Minimal",
+    "price": 1720,
+    "oldPrice": 1990,
+    "discount": 14,
+    "rating": 4.8,
+    "reviewsCount": 18,
+    "images": [
+      "/images/curved_oak_chairs_1790144054533.jpg"
+    ],
+    "description": "Warm Scandinavian dining chairs boasting organic crescent backrests and floating seats covered in textured ivory bouclé. Crafted from solid Appalachian white oak with soft hand-oiled touch.",
+    "material": "Solid White Oak & Tactile Italian Bouclé",
+    "color": "Natural Oak & Warm Cream",
+    "availableColors": [
+      "Natural Oak & Warm Cream",
+      "Smoked Oak & Charcoal",
+      "Bleached Ash & Oat"
+    ],
+    "width": "55 cm",
+    "height": "79 cm",
+    "depth": "56 cm",
+    "weight": "7.1 kg (each)",
+    "availableSizes": [
+      "Set of 4 Chairs",
+      "Set of 6 Chairs"
+    ],
+    "stock": 12,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Joinery": "Traditional mortise and tenon joinery without visible screws",
+      "Finish": "Zero-VOC organic Danish hardwax oil",
+      "Fabric": "Heavyweight textured bouclé with Martindale 70,000 rub score"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-21T15:00:00Z"
+  },
+  {
+    "id": "prod-malmo-sculpted-oak-armchairs",
+    "name": "Malmö Sculpted Oak & Linen Lounge Armchairs (Pair)",
+    "category": "Chairs",
+    "brand": "AURA Heritage",
+    "price": 1590,
+    "oldPrice": 1850,
+    "discount": 14,
+    "rating": 4.9,
+    "reviewsCount": 29,
+    "images": [
+      "/images/nordic_armchairs_1790144068289.jpg"
+    ],
+    "description": "An iconic pair of mid-century architectural lounge armchairs. Gently angled organic armrests shaped from solid oak, supporting deep textured oatmeal linen seat and back cushions with matching lumbar pillows.",
+    "material": "Solid Quarter-Sawn Oak & Textured Oatmeal Linen",
+    "color": "Natural Oak & Oatmeal Linen",
+    "availableColors": [
+      "Natural Oak & Oatmeal Linen",
+      "Smoked Walnut & Slate",
+      "Black Ash & Ivory"
+    ],
+    "width": "74 cm",
+    "height": "81 cm",
+    "depth": "82 cm",
+    "weight": "14.5 kg (each)",
+    "availableSizes": [
+      "Pair of 2 Armchairs",
+      "Single Armchair"
+    ],
+    "stock": 7,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Woodwork": "Carved and hand-sanded quarter-sawn solid oak arms and legs",
+      "Cushions": "Dual-density layered foam with removable zippered linen covers",
+      "Includes": "2 Matching accent lumbar pillows"
+    },
+    "reviews": [
+      {
+        "id": "rev-c3",
+        "author": "David H.",
+        "rating": 5,
+        "date": "2026-09-20",
+        "comment": "Stunning pair beside our fireplace. Firm yet very comfortable support.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T08:00:00Z"
+  },
+  {
+    "id": "prod-sylvan-oak-dining-suite",
+    "name": "Sylvan Architectural Fluted Oak Dining Suite",
+    "category": "Tables",
+    "brand": "AURA Atelier",
+    "price": 3250,
+    "oldPrice": 3700,
+    "discount": 12,
+    "rating": 5,
+    "reviewsCount": 17,
+    "images": [
+      "/images/oak_dining_suite_1790144894898.jpg"
+    ],
+    "description": "Handcrafted from solid Appalachian white oak. Features monolithic fluted rectangular trestle legs and a chamfered solid timber table surface, complemented by 6 ergonomic tailored beige dining chairs.",
+    "material": "Solid White Oak & High-Density Linen Upholstery",
+    "color": "Natural White Oak & Sand",
+    "availableColors": [
+      "Natural White Oak & Sand",
+      "Smoked Oak & Charcoal"
+    ],
+    "width": "240 cm",
+    "height": "76 cm",
+    "depth": "105 cm",
+    "weight": "98 kg",
+    "availableSizes": [
+      "8-Seater (240 cm)",
+      "10-Seater Grand (280 cm)"
+    ],
+    "stock": 6,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Craftsmanship": "Continuous solid oak plank with hidden expansion joints",
+      "Finish": "Zero-gloss Danish organic protective oil",
+      "Includes": "Dining table and set of 6 upholstered chairs"
+    },
+    "reviews": [
+      {
+        "id": "rev-s1",
+        "author": "Camille Vance",
+        "rating": 5,
+        "date": "2026-09-20",
+        "comment": "The fluted leg craftsmanship is stunning. Truly the centerpiece of our home.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T08:00:00Z"
+  },
+  {
+    "id": "prod-apex-origami-marble-table",
+    "name": "Apex Origami Calacatta Marble Dining Table",
+    "category": "Tables",
+    "brand": "AURA Atelier",
+    "price": 4650,
+    "oldPrice": 5300,
+    "discount": 12,
+    "rating": 5,
+    "reviewsCount": 24,
+    "images": [
+      "/images/apex_marble_table_1790144909744.jpg"
+    ],
+    "description": "A monumental statement piece. Hand-selected Calacatta marble slab with dramatic grey veining balanced on an architectural folded origami matte black steel trestle base.",
+    "material": "Honed Italian Calacatta Marble & Electrostatic Coated Steel",
+    "color": "Calacatta White & Matte Noir",
+    "availableColors": [
+      "Calacatta White & Matte Noir",
+      "Marquina Black & Brass"
+    ],
+    "width": "280 cm",
+    "height": "75 cm",
+    "depth": "115 cm",
+    "weight": "220 kg",
+    "availableSizes": [
+      "Grand 280 cm (10 Seater)",
+      "Salon 320 cm (12 Seater)"
+    ],
+    "stock": 3,
+    "availability": "low_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Stone Thickness": "30mm monolithic stone with beveled shark-nose edge",
+      "Steel Subframe": "Laser-cut 8mm industrial carbon plate",
+      "Sealing": "Nano-ceramic stain and acid repellent seal"
+    },
+    "reviews": [
+      {
+        "id": "rev-s2",
+        "author": "Alexander Sterling",
+        "rating": 5,
+        "date": "2026-09-21",
+        "comment": "Spectacular oceanfront penthouse dining. Everyone who visits is stunned by the stone veining.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T09:00:00Z"
+  },
+  {
+    "id": "prod-aurelia-gold-wave-suite",
+    "name": "Aura Aurelia Gold Wave Marble Dining Suite",
+    "category": "Tables",
+    "brand": "AURA Atelier",
+    "price": 4890,
+    "oldPrice": 5600,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 16,
+    "images": [
+      "/images/gold_wave_table_1790144922943.jpg"
+    ],
+    "description": "Sculptural Italian glam at its pinnacle. Flowing ribbon pedestal cast in satin champagne gold alloy supporting a high-gloss polished marble tabletop, flanked by channel-tufted velvet chairs.",
+    "material": "Satin Champagne Gold Alloy & Polished Arabescato Stone",
+    "color": "Champagne Gold & Pure White",
+    "availableColors": [
+      "Champagne Gold & Pure White",
+      "Titanium Noir & Alabaster"
+    ],
+    "width": "260 cm",
+    "height": "76 cm",
+    "depth": "110 cm",
+    "weight": "175 kg",
+    "availableSizes": [
+      "8-Seater (260 cm)",
+      "6-Seater (220 cm)"
+    ],
+    "stock": 4,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Pedestal Sculpting": "Continuously curved aerodynamic ribbon base",
+      "Chairs Included": "6 Contoured two-tone chairs with champagne brass tips",
+      "Finish": "PVD electroplated scratch-resistant gold"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T10:00:00Z"
+  },
+  {
+    "id": "prod-tambour-slatted-oval-table",
+    "name": "Tambour Fluted Oval Architectural Coffee Table",
+    "category": "Tables",
+    "brand": "AURA Minimal",
+    "price": 1450,
+    "oldPrice": 1680,
+    "discount": 14,
+    "rating": 4.9,
+    "reviewsCount": 31,
+    "images": [
+      "/images/tambour_oval_table_1790144936449.jpg"
+    ],
+    "description": "A serene living room centerpiece featuring individual vertical tambour ribs in matte charcoal slate, crowned by a natural American walnut solid wood oval lid with concealed interior storage.",
+    "material": "American Walnut & Fluted Tambour Carbon Finish",
+    "color": "Slate Charcoal & Natural Walnut",
+    "availableColors": [
+      "Slate Charcoal & Natural Walnut",
+      "Blonde Oak & Cream"
+    ],
+    "width": "135 cm",
+    "height": "42 cm",
+    "depth": "70 cm",
+    "weight": "38 kg",
+    "availableSizes": [
+      "Standard Oval (135x70 cm)",
+      "Grand Salon (160x85 cm)"
+    ],
+    "stock": 11,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Storage": "Dual soft-glide side drawers concealed in the tambour flutes",
+      "Base Construction": "Solid birch fluting with acoustic dampening",
+      "Top": "UV-resistant water-shield oiled walnut"
+    },
+    "reviews": [
+      {
+        "id": "rev-s3",
+        "author": "Mila Kunis",
+        "rating": 5,
+        "date": "2026-09-22",
+        "comment": "The hidden drawers and tambour texture give our living room such warmth and order.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T11:00:00Z"
+  },
+  {
+    "id": "prod-palisades-corner-lounge-suite",
+    "name": "Palisades Grand L-Modular Living Suite",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 4450,
+    "oldPrice": 5100,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 28,
+    "images": [
+      "/images/palisades_modular_sofa_1790144952118.jpg"
+    ],
+    "description": "Generous deep-profile architectural corner sectional upholstered in light oatmeal textured linen. Designed for open-concept residences with plush hypoallergenic goose-down wrapped foam cushioning.",
+    "material": "Washed Belgian Linen & Kiln-Dried Hardwood Frame",
+    "color": "Oatmeal Linen",
+    "availableColors": [
+      "Oatmeal Linen",
+      "Warm Putty",
+      "Charcoal Slate"
+    ],
+    "width": "350 cm",
+    "height": "80 cm",
+    "depth": "280 cm",
+    "weight": "165 kg",
+    "availableSizes": [
+      "Grand L-Sectional (350x280 cm)",
+      "Extended U-Sectional (390x320 cm)"
+    ],
+    "stock": 5,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Configuration": "Modular 4-unit corner group with reversible chaise",
+      "Cushioning": "70% goose down / 30% micro-feather over high-resilience core",
+      "Covers": "Tailored completely removable slipcovers"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T12:00:00Z"
+  },
+  {
+    "id": "prod-kyoto-aframe-dining-set",
+    "name": "Kyoto A-Frame Oak Dining Set with Shell Chairs",
+    "category": "Tables",
+    "brand": "AURA Minimal",
+    "price": 2150,
+    "oldPrice": 2490,
+    "discount": 14,
+    "rating": 4.8,
+    "reviewsCount": 19,
+    "images": [
+      "/images/kyoto_oak_dining_1790144966584.jpg"
+    ],
+    "description": "Sleek contemporary dining set tailored for modern loft spaces. Solid oak surface on black powder-coated steel A-frame legs, paired with 4 molded shell chairs upholstered in tactile cream wool.",
+    "material": "Solid Oak & Matte Black Industrial Steel",
+    "color": "Natural Oak & Cream",
+    "availableColors": [
+      "Natural Oak & Cream",
+      "Smoked Black & Charcoal"
+    ],
+    "width": "180 cm",
+    "height": "75 cm",
+    "depth": "90 cm",
+    "weight": "62 kg",
+    "availableSizes": [
+      "6-Seater (180 cm)",
+      "8-Seater (220 cm)"
+    ],
+    "stock": 9,
+    "availability": "in_stock",
+    "isFeatured": false,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Legs": "Reinforced steel A-frame with leveling feet",
+      "Chairs": "Includes 4 contoured shell chairs with black steel legs",
+      "Origin": "Kyoto Studio Minimalist Collection"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T13:00:00Z"
+  },
+  {
+    "id": "prod-vesper-cross-slate-suite",
+    "name": "Vesper Cross-Base Slate Dining Table & Velvet Chairs",
+    "category": "Tables",
+    "brand": "AURA Atelier",
+    "price": 2950,
+    "oldPrice": 3400,
+    "discount": 13,
+    "rating": 4.9,
+    "reviewsCount": 22,
+    "images": [
+      "/images/vesper_cross_dining_1790144979400.jpg"
+    ],
+    "description": "Dramatic industrial-luxe dining suite featuring a dark charcoal sintered stone tabletop mounted on an architectural geometric X-pedestal, accompanied by 4 sculpted curved black velvet wingback chairs.",
+    "material": "Sintered Slate Stone, Carbon Steel & Midnight Velvet",
+    "color": "Dark Charcoal & Midnight Black",
+    "availableColors": [
+      "Dark Charcoal & Midnight Black",
+      "Concrete Grey & Emerald Velvet"
+    ],
+    "width": "200 cm",
+    "height": "76 cm",
+    "depth": "100 cm",
+    "weight": "115 kg",
+    "availableSizes": [
+      "6-Seater (200 cm)",
+      "8-Seater (240 cm)"
+    ],
+    "stock": 7,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Tabletop": "Heat and scratch-proof 12mm sintered slate",
+      "Pedestal": "Sculptural central X-trestle maximizing legroom",
+      "Chairs": "4 Ergonomic curved wingback chairs in plush velvet"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T14:00:00Z"
+  },
+  {
+    "id": "prod-oslo-two-tone-crossback-set",
+    "name": "Oslo Two-Tone Crossback Dining Ensemble",
+    "category": "Tables",
+    "brand": "AURA Minimal",
+    "price": 1890,
+    "oldPrice": 2180,
+    "discount": 13,
+    "rating": 4.8,
+    "reviewsCount": 15,
+    "images": [
+      "/images/oslo_crossback_dining_1790144994080.jpg"
+    ],
+    "description": "Nordic coastal dining set blending a dark slate charcoal rectangular top with crisp chalk-white solid birch frames and 4 matching X-back chairs cushioned in heather grey weave.",
+    "material": "Solid Birch & Sealed Charcoal Wood Veneer",
+    "color": "Charcoal Top & White Frame",
+    "availableColors": [
+      "Charcoal Top & White Frame",
+      "All Natural Birch"
+    ],
+    "width": "160 cm",
+    "height": "75 cm",
+    "depth": "85 cm",
+    "weight": "54 kg",
+    "availableSizes": [
+      "4-to-6 Seater (160 cm)",
+      "Extendable (160-210 cm)"
+    ],
+    "stock": 8,
+    "availability": "in_stock",
+    "isFeatured": false,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": false,
+    "specifications": {
+      "Structure": "Hand-mortised solid birch framework",
+      "Chair Design": "Traditional Scandinavian crossback with cushioned seats",
+      "Maintenance": "Wipe-clean satin lacquer protective coating"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T15:00:00Z"
+  },
+  {
+    "id": "prod-provence-reclaimed-farmhouse-suite",
+    "name": "Provence Reclaimed Timber Dining Table & Tufted Bench",
+    "category": "Tables",
+    "brand": "AURA Heritage",
+    "price": 3350,
+    "oldPrice": 3850,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 35,
+    "images": [
+      "/images/provence_farmhouse_dining_1790145007366.jpg"
+    ],
+    "description": "Artisanal warmth and character. Authentic reclaimed centuries-old French walnut dining table with hand-turned baluster legs, complemented by button-tufted cream wingback dining chairs and bench with antique brass nailhead accents.",
+    "material": "Reclaimed Century French Walnut & Tufted Linen",
+    "color": "Warm Honey Walnut & Cream",
+    "availableColors": [
+      "Warm Honey Walnut & Cream",
+      "Weathered Driftwood & Oatmeal"
+    ],
+    "width": "220 cm",
+    "height": "77 cm",
+    "depth": "105 cm",
+    "weight": "128 kg",
+    "availableSizes": [
+      "8-Seater (220 cm)",
+      "10-Seater Grand (270 cm)"
+    ],
+    "stock": 4,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Wood Age": "Salvaged architectural beams aged over 100 years",
+      "Baluster Legs": "Hand-lathe turned solid 14cm thick timber columns",
+      "Chairs Included": "Pair of French tufted captain chairs plus matching bench"
+    },
+    "reviews": [
+      {
+        "id": "rev-s4",
+        "author": "Eleanor & Mark",
+        "rating": 5,
+        "date": "2026-09-21",
+        "comment": "The character and patina of this reclaimed wood is magnificent. Everyone gathers here.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T16:00:00Z"
+  },
+  {
+    "id": "prod-montana-whiskey-leather-sofa",
+    "name": "Montana Vintage Whiskey Saddle Leather Sofa",
+    "category": "Sofas",
+    "brand": "AURA Heritage",
+    "price": 3650,
+    "oldPrice": 4200,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 32,
+    "images": [
+      "/images/montana_leather_sofa_1790145458061.jpg"
+    ],
+    "description": "Hand-distressed full-grain Italian pull-up leather sofa with classic roll arms and individually hammered antiqued brass nailhead studs. Designed for mountain lodges and refined heritage studies.",
+    "material": "Distressed Whiskey Pull-Up Leather & Kiln-Dried Hardwood",
+    "color": "Whiskey Cognac",
+    "availableColors": [
+      "Whiskey Cognac",
+      "Aged Chestnut",
+      "Espresso Noir"
+    ],
+    "width": "235 cm",
+    "height": "88 cm",
+    "depth": "102 cm",
+    "weight": "95 kg",
+    "availableSizes": [
+      "3-Seater (235 cm)",
+      "4-Seater Grand (275 cm)"
+    ],
+    "stock": 5,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Leather Type": "Hand-buffed full-grain pull-up aniline hide",
+      "Detailing": "Hand-hammered continuous antique brass nailhead trim",
+      "Pillows": "Includes 4 coordinated leather and jacquard accent cushions"
+    },
+    "reviews": [
+      {
+        "id": "rev-m1",
+        "author": "Harrison Forde",
+        "rating": 5,
+        "date": "2026-09-21",
+        "comment": "The patina on this whiskey leather is breathtaking. Incredibly comfortable deep seating.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T17:00:00Z"
+  },
+  {
+    "id": "prod-milano-walnut-tufted-suite",
+    "name": "Milano Curved Walnut & Tufted Leather Living Suite",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 4950,
+    "oldPrice": 5700,
+    "discount": 13,
+    "rating": 5,
+    "reviewsCount": 27,
+    "images": [
+      "/images/milano_walnut_sofa_1790145478267.jpg"
+    ],
+    "description": "Italian architectural suite featuring a low-profile sofa and lounge armchair wrapped in steam-bent American walnut outer timber shells. Upholstered in diamond-tufted alabaster top-grain leather with emerald velvet bolster pillows.",
+    "material": "Solid American Walnut & Diamond-Tufted Italian Nappa Leather",
+    "color": "American Walnut & Alabaster White",
+    "availableColors": [
+      "American Walnut & Alabaster White",
+      "Smoked Oak & Jet Black"
+    ],
+    "width": "260 cm",
+    "height": "74 cm",
+    "depth": "100 cm",
+    "weight": "135 kg",
+    "availableSizes": [
+      "Sofa & Armchair Suite",
+      "Standalone 3-Seater Sofa"
+    ],
+    "stock": 3,
+    "availability": "low_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Exoskeleton": "Multi-layer steam-bent walnut shell with soft satin sheen",
+      "Tufting": "Deep diamond hand-punched button upholstery",
+      "Accents": "Includes 2 bespoke emerald velvet bolster cushions"
+    },
+    "reviews": [
+      {
+        "id": "rev-m2",
+        "author": "Chiara Bellini",
+        "rating": 5,
+        "date": "2026-09-22",
+        "comment": "A masterpiece of Italian carpentry and leatherwork. Transforms the entire living room.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T18:00:00Z"
+  },
+  {
+    "id": "prod-canyon-tuxedo-lounge-sofa",
+    "name": "Canyon Lowline Track-Arm Tuxedo Sofa",
+    "category": "Sofas",
+    "brand": "AURA Minimal",
+    "price": 2850,
+    "oldPrice": 3300,
+    "discount": 14,
+    "rating": 4.9,
+    "reviewsCount": 20,
+    "images": [
+      "/images/canyon_tuxedo_sofa_1790145492667.jpg"
+    ],
+    "description": "Tailored mid-century California modern tuxedo sofa with continuous horizontal track arms in deep midnight charcoal weave. Styled with terracotta and ochre accent pillows on a black carbon steel sled frame.",
+    "material": "Textured Heavyweight Weave & Matte Carbon Steel Sled",
+    "color": "Midnight Slate & Amber",
+    "availableColors": [
+      "Midnight Slate & Amber",
+      "Pacific Blue & Ochre",
+      "Natural Sand & Terracotta"
+    ],
+    "width": "245 cm",
+    "height": "76 cm",
+    "depth": "98 cm",
+    "weight": "78 kg",
+    "availableSizes": [
+      "3-Seater (245 cm)",
+      "4-Seater (285 cm)"
+    ],
+    "stock": 7,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Frame": "Precision laser-cut welded carbon steel perimeter base",
+      "Cushions": "Memory foam core wrapped in hypoallergenic duck down",
+      "Pillows": "Includes 5 woven earth-tone accent throw cushions"
+    },
+    "reviews": [],
+    "createdAt": "2026-09-22T19:00:00Z"
+  },
+  {
+    "id": "prod-baffle-cloud-boucle-sofa",
+    "name": "Baffle Cloud Sculptural Bouclé Block Sofa",
+    "category": "Sofas",
+    "brand": "AURA Atelier",
+    "price": 2980,
+    "oldPrice": 3450,
+    "discount": 14,
+    "rating": 5,
+    "reviewsCount": 38,
+    "images": [
+      "/images/baffle_cloud_sofa_1790145515779.jpg"
+    ],
+    "description": "Organic sculptural block sofa enveloped in cloud-soft ivory Italian bouclé. Features pillowed vertical channel baffle contours, seamless integrated bolster ends, and multi-density cloud core seating.",
+    "material": "Tactile Heavyweight Italian Bouclé & Multi-Density Foam",
+    "color": "Alabaster Ivory",
+    "availableColors": [
+      "Alabaster Ivory",
+      "Soft Greige",
+      "Warm Taupe"
+    ],
+    "width": "250 cm",
+    "height": "75 cm",
+    "depth": "105 cm",
+    "weight": "82 kg",
+    "availableSizes": [
+      "Standard 3-Seater (250 cm)",
+      "Curved Grand (290 cm)"
+    ],
+    "stock": 8,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Silhouette": "Curved ergonomic baffle quilting with zero sharp corners",
+      "Fabric Durability": "Martindale 85,000 double rubs, stain-guard pre-treated",
+      "Interior Core": "Triple-zone high resilience foam with down feather overlay"
+    },
+    "reviews": [
+      {
+        "id": "rev-m3",
+        "author": "Nora Chen",
+        "rating": 5,
+        "date": "2026-09-22",
+        "comment": "Like sitting on a firm, supportive cloud. The bouclé texture is exquisite.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T20:00:00Z"
+  },
+  {
+    "id": "prod-royal-ruby-chesterfield-sofa",
+    "name": "Royal Sovereign Ruby Chesterfield Leather Sofa",
+    "category": "Sofas",
+    "brand": "AURA Heritage",
+    "price": 3890,
+    "oldPrice": 4500,
+    "discount": 14,
+    "rating": 5,
+    "reviewsCount": 41,
+    "images": [
+      "/images/ruby_chesterfield_1790145529984.jpg"
+    ],
+    "description": "Authentic British heritage Chesterfield handcrafted in deep antique ruby red patinated leather. Meticulously pulled diamond button tufting across back and seat, hand-rolled scroll arms with antique brass nails, and turned mahogany timber feet.",
+    "material": "Hand-Antiqued Ruby Red Calfskin Leather & Solid Mahogany",
+    "color": "Antique Ruby Red",
+    "availableColors": [
+      "Antique Ruby Red",
+      "Imperial British Racing Green",
+      "Regal Cognac"
+    ],
+    "width": "240 cm",
+    "height": "78 cm",
+    "depth": "98 cm",
+    "weight": "92 kg",
+    "availableSizes": [
+      "3-Seater (240 cm)",
+      "4-Seater (280 cm)"
+    ],
+    "stock": 4,
+    "availability": "in_stock",
+    "isFeatured": true,
+    "isNew": true,
+    "isDiscounted": true,
+    "isBestSeller": true,
+    "specifications": {
+      "Tufting": "Deep traditional hand-tied button tufting across entire body",
+      "Leather": "Vegetable-tanned full-grain leather with antique crackle glazing",
+      "Legs": "Hand-lathe turned solid mahogany with solid brass casters"
+    },
+    "reviews": [
+      {
+        "id": "rev-m4",
+        "author": "Lord Julian Vance",
+        "rating": 5,
+        "date": "2026-09-22",
+        "comment": "Unmatched gravitas and leather craftsmanship. The ruby red tone is majestic.",
+        "verified": true
+      }
+    ],
+    "createdAt": "2026-09-22T21:00:00Z"
+  }
+];
+
+export const initialSiteSettings: SiteSettings = {
+  "siteName": "AURA Modern Living",
+  "logoText": "AURA",
+  "logoIcon": "sparkle",
+  "logoImageUrl": "",
+  "heroTitle": "Modern Furniture For Your Perfect Home",
+  "heroSubtitle": "Architectural silhouettes, premium carbon-infused materials, and electric-blue luminescence crafted for visionary living spaces.",
+  "heroBadge": "2026 Architectural Collection",
+  "heroImage": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85",
+  "heroCtaText": "Shop Now",
+  "heroSecondaryCtaText": "Explore Collection",
+  "announcementText": "",
+  "showAnnouncement": false,
+  "primaryColor": "#00f0ff",
+  "secondaryColor": "#2563eb",
+  "backgroundColor": "#07090e",
+  "surfaceColor": "#0e1322",
+  "fontFamily": "Plus Jakarta Sans",
+  "borderRadius": "rounded-xl",
+  "cardStyle": "glass-glow",
+  "headerStyle": "glass-sticky",
+  "bannerStyle": "futuristic-glow",
+  "homeSections": {
+    "featured": {
+      "enabled": true,
+      "title": "Featured Masterpieces",
+      "subtitle": "Curated architectural centerpieces engineered for elegance"
+    },
+    "categories": {
+      "enabled": true,
+      "title": "Curated Categories",
+      "subtitle": "Explore visionary designs tailored for every room"
+    },
+    "newArrivals": {
+      "enabled": true,
+      "title": "New Arrivals",
+      "subtitle": "Fresh silhouettes from our Milan & Tokyo design studios"
+    },
+    "bestSellers": {
+      "enabled": true,
+      "title": "Best Sellers",
+      "subtitle": "Most coveted pieces chosen by international interior architects"
+    },
+    "specialOffers": {
+      "enabled": true,
+      "title": "Special Offers",
+      "subtitle": "Exclusive limited-time architectural acquisitions"
+    },
+    "discounted": {
+      "enabled": true,
+      "title": "Discounted Furniture",
+      "subtitle": "Premium furniture at special seasonal promotional rates"
+    }
+  }
+};

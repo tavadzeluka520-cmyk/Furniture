@@ -1,0 +1,6 @@
+{
+  "name": "AURA Furniture | Futuristic Luxury Living",
+  "description": "Premium modern furniture e-commerce store with futuristic black and blue aesthetics, comprehensive catalog, and intelligent AI design assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
