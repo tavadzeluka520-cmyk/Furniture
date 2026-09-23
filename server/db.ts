@@ -17,7 +17,7 @@ export interface DatabaseSchema {
 export function isAuthorizedAdmin(email?: string): boolean {
   if (!email) return false;
   const clean = email.trim().toLowerCase();
-  return clean === 'tavadzeluka520@gamil.com' || clean === 'tavadzeluka520@gmail.com';
+  return clean === 'tavadzeluka520@gmail.com';
 }
 
 class Database {
@@ -51,13 +51,6 @@ class Database {
       settings: initialSiteSettings,
       orders: [],
       users: [
-        {
-          id: 'admin-1',
-          email: 'tavadzeluka520@gamil.com',
-          name: 'Luka Tavadze (Admin)',
-          role: 'admin',
-          token: 'aura-admin-secret-token-7749'
-        },
         {
           id: 'admin-2',
           email: 'tavadzeluka520@gmail.com',

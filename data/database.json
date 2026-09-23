@@ -1279,7 +1279,7 @@
   "users": [
     {
       "id": "admin-1",
-      "email": "tavadzeluka520@gamil.com",
+      "email": "tavadzeluka520@gmail.com",
       "name": "Luka Tavadze (Admin)",
       "role": "admin",
       "token": "aura-admin-secret-token-7749"

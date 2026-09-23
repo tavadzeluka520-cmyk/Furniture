@@ -122,8 +122,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const isAdmin = Boolean(
     currentUser &&
     currentUser.role === 'admin' &&
-    (currentUser.email.toLowerCase() === 'tavadzeluka520@gamil.com' ||
-     currentUser.email.toLowerCase() === 'tavadzeluka520@gmail.com')
+    currentUser.email.toLowerCase() === 'tavadzeluka520@gmail.com'
   );
 
   // Save cart & wishlist to localStorage
