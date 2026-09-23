@@ -389,7 +389,7 @@ app.get('/api/auth/me', (req: Request, res: Response) => {
       return res.json({
         user: {
           id: 'admin-1',
-          email: 'tavadzeluka520@gamil.com',
+          email: 'tavadzeluka520@gmail.com',
           name: 'Luka Tavadze (Admin)',
           role: 'admin'
         },
