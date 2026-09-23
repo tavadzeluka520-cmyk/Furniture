@@ -54,7 +54,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
   const wishlisted = isWishlisted(product.id);
-  const images = product.images && product.images.length > 0 ? product.images : ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80'];
+  const images = product.images && product.images.length > 0 ? product.images : ['/images/sofa_modular_luxury.jpg'];
 
   // Related products from same category or brand
   const relatedProducts = products

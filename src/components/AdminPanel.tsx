@@ -89,7 +89,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
     isNew: true,
     isDiscounted: false,
     isBestSeller: false,
-    images: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80']
+    images: ['/images/sofa_modular_luxury.jpg']
   });
 
   // Category Form State
@@ -99,7 +99,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
     name: '',
     slug: '',
     description: '',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80'
+    image: '/images/chair_dining_sculptural.jpg'
   });
 
   // Design Settings Form (Local working state)
@@ -112,7 +112,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
       heroTitle: 'Modern Furniture For Your Perfect Home',
       heroSubtitle: 'Architectural silhouettes, premium carbon-infused materials, and electric-blue luminescence.',
       heroBadge: '2026 Architectural Collection',
-      heroImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85',
+      heroImage: '/images/hero_scandinavian_lounge.jpg',
       heroCtaText: 'Shop Now',
       heroSecondaryCtaText: 'Explore Collection',
       announcementText: '',
@@ -167,7 +167,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
       isNew: true,
       isDiscounted: false,
       isBestSeller: false,
-      images: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80']
+      images: ['/images/sofa_modular_luxury.jpg']
     });
     setIsProductModalOpen(true);
   };
@@ -416,7 +416,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
       name: '',
       slug: '',
       description: '',
-      image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80'
+      image: '/images/chair_dining_sculptural.jpg'
     });
     setIsCategoryModalOpen(true);
   };

@@ -6,7 +6,7 @@ export const initialCategories: Category[] = [
     "name": "Sofas",
     "slug": "sofas",
     "description": "Sculptural modular sectionals, curved architectural lounges, and handcrafted Italian leather seating.",
-    "image": "/images/grand_modular_lounge_1790143529290.jpg",
+    "image": "/images/sofa_modular_luxury.jpg",
     "itemCount": 12
   },
   {
@@ -14,7 +14,7 @@ export const initialCategories: Category[] = [
     "name": "Chairs",
     "slug": "chairs",
     "description": "Sculptural dining chairs, curved bouclé seats, hand-stitched leather silhouettes, and mid-century modern lounge armchairs.",
-    "image": "/images/teal_velvet_chairs_1790144012592.jpg",
+    "image": "/images/chair_dining_sculptural.jpg",
     "itemCount": 5
   },
   {
@@ -22,7 +22,7 @@ export const initialCategories: Category[] = [
     "name": "Tables",
     "slug": "tables",
     "description": "Architectural dining suites, sculptural marble pedestals, and fluted handcrafted coffee tables.",
-    "image": "/images/apex_marble_table_1790144909744.jpg",
+    "image": "/images/table_marble_origami.jpg",
     "itemCount": 8
   }
 ];
@@ -39,7 +39,7 @@ export const initialProducts: Product[] = [
     "rating": 5,
     "reviewsCount": 18,
     "images": [
-      "/images/grand_modular_lounge_1790143529290.jpg"
+      "/images/sofa_modular_luxury.jpg"
     ],
     "description": "Conceived for grand penthouse salons and high-ceiling residences. A bespoke U-shaped modular sectional configuration featuring built-in low timber end-consoles, deep dual-density seating wrapped in sand bouclé, and complemented by a monolithic Calacatta marble slab table.",
     "material": "Waterproof Italian Bouclé, Solid Walnut & Calacatta Stone",
@@ -325,7 +325,7 @@ export const initialProducts: Product[] = [
     "rating": 5,
     "reviewsCount": 15,
     "images": [
-      "/images/teal_velvet_chairs_1790144012592.jpg"
+      "/images/chair_dining_sculptural.jpg"
     ],
     "description": "Curated ensemble of 6 ergonomic dining chairs enveloped in slate teal-blue velvet with subtle herringbone quilted backs, mounted on tapered black carbon steel legs. Paired with a modern extendable ceramic dining table aesthetic.",
     "material": "Stain-Resistant Italian Velvet & Black Carbon Steel",
@@ -618,7 +618,7 @@ export const initialProducts: Product[] = [
     "rating": 5,
     "reviewsCount": 24,
     "images": [
-      "/images/apex_marble_table_1790144909744.jpg"
+      "/images/table_marble_origami.jpg"
     ],
     "description": "A monumental statement piece. Hand-selected Calacatta marble slab with dramatic grey veining balanced on an architectural folded origami matte black steel trestle base.",
     "material": "Honed Italian Calacatta Marble & Electrostatic Coated Steel",
@@ -1231,7 +1231,7 @@ export const initialSiteSettings: SiteSettings = {
   "heroTitle": "Modern Furniture For Your Perfect Home",
   "heroSubtitle": "Architectural silhouettes, premium carbon-infused materials, and electric-blue luminescence crafted for visionary living spaces.",
   "heroBadge": "2026 Architectural Collection",
-  "heroImage": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85",
+  "heroImage": "/images/hero_scandinavian_lounge.jpg",
   "heroCtaText": "Shop Now",
   "heroSecondaryCtaText": "Explore Collection",
   "announcementText": "",
