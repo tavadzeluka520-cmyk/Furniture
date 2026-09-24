@@ -1280,7 +1280,7 @@
     {
       "id": "admin-1",
       "email": "tavadzeluka520@gmail.com",
-      "name": "Luka Tavadze (Admin)",
+      "name": "Luka Tavadze",
       "role": "admin",
       "token": "aura-admin-secret-token-7749"
     },

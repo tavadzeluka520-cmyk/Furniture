@@ -195,8 +195,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
   };
 
   // Google Sign In / Registration Handler
-  const handleGoogleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleGoogleSubmit = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (!googleEmail.trim()) {
       setError('Please enter your Google email address');
       return;
@@ -206,7 +209,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
     resetMessages();
 
     const cleanGoogleEmail = googleEmail.trim();
-    const res = await loginWithGoogle(cleanGoogleEmail, googleName.trim() || undefined);
+    const cleanGoogleName = googleName.trim() || (cleanGoogleEmail.toLowerCase() === 'tavadzeluka520@gmail.com' ? 'Luka Tavadze (Admin)' : undefined);
+    const res = await loginWithGoogle(cleanGoogleEmail, cleanGoogleName);
     setLoading(false);
 
     if (res.success) {
@@ -227,8 +231,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
   // Quick 1-tap Google Authentication with prompt
   const handleQuickGoogleClick = () => {
     resetMessages();
-    setGoogleEmail('');
-    setGoogleName('');
+    setGoogleEmail(email.trim() || '');
+    setGoogleName(name.trim() || '');
     setMode('google-prompt');
   };
 
@@ -363,11 +367,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
           /* GOOGLE SIGN IN / REGISTRATION PROMPT */
           <form 
             name="google-auth-form"
-            method="post"
-            action="#"
-            onSubmit={handleGoogleSubmit} 
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleGoogleSubmit(e);
+            }} 
             className="space-y-5"
-            autoComplete="on"
           >
             <div className="text-center pb-1">
               <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
@@ -581,10 +586,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
             <form 
               name="user-credentials-form"
               id="user-credentials-form"
-              method="post"
-              action="#"
               autoComplete="on"
-              onSubmit={mode === 'signin' ? handleSignIn : handleRegister} 
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (mode === 'signin') {
+                  handleSignIn(e);
+                } else {
+                  handleRegister(e);
+                }
+              }} 
               className="space-y-3.5 text-xs"
             >
               {/* Name Field (Only in Register mode) */}

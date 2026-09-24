@@ -581,40 +581,51 @@ ${JSON.stringify(catalogSummary, null, 2)}
 CURRENT CATEGORIES:
 ${categories.map(c => c.name).join(', ')}`;
 
-    // Try Gemini API via @google/genai
+    // Try Gemini API via @google/genai with multi-model fallback and high-demand spike resilience
     if (process.env.GEMINI_API_KEY) {
-      try {
-        const ai = new GoogleGenAI();
-        const formattedContents = [];
+      const candidateModels = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.1-flash-lite'];
+      const ai = new GoogleGenAI();
+      const formattedContents = [];
 
-        if (Array.isArray(conversationHistory)) {
-          for (const msg of conversationHistory.slice(-6)) {
-            if (msg.role === 'user' || msg.role === 'assistant') {
-              formattedContents.push({
-                role: msg.role === 'assistant' ? 'model' : 'user',
-                parts: [{ text: String(msg.content) }]
-              });
-            }
+      if (Array.isArray(conversationHistory)) {
+        for (const msg of conversationHistory.slice(-6)) {
+          if (msg.role === 'user' || msg.role === 'assistant') {
+            formattedContents.push({
+              role: msg.role === 'assistant' ? 'model' : 'user',
+              parts: [{ text: String(msg.content) }]
+            });
           }
         }
+      }
 
-        formattedContents.push({
-          role: 'user',
-          parts: [{ text: message }]
-        });
+      formattedContents.push({
+        role: 'user',
+        parts: [{ text: message }]
+      });
 
-        const aiResponse = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: formattedContents,
-          config: {
-            systemInstruction
+      for (const modelName of candidateModels) {
+        try {
+          const aiResponse = await ai.models.generateContent({
+            model: modelName,
+            contents: formattedContents,
+            config: {
+              systemInstruction
+            }
+          });
+
+          if (aiResponse && aiResponse.text) {
+            return res.json({ reply: aiResponse.text });
           }
-        });
-
-        const reply = aiResponse.text || 'I am delighted to assist you with our architectural furniture collection. How may I guide your interior selection today?';
-        return res.json({ reply });
-      } catch (geminiErr) {
-        console.error('Gemini API call failed, falling back to smart concierge engine:', geminiErr);
+        } catch (geminiErr: any) {
+          const errMsg = String(geminiErr?.message || geminiErr);
+          const isDemandError = errMsg.includes('503') || errMsg.includes('high demand') || errMsg.includes('UNAVAILABLE') || errMsg.includes('429');
+          if (isDemandError) {
+            // High demand spike on current model, try the next model candidate
+            continue;
+          } else {
+            break;
+          }
+        }
       }
     }
 
