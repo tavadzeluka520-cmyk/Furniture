@@ -94,9 +94,6 @@ export interface User {
   token?: string;
   password?: string;
   phone?: string;
-  provider?: 'google' | 'email';
-  avatar?: string;
-  createdAt?: string;
 }
 
 export interface Order {

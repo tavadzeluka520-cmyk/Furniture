@@ -272,6 +272,8 @@ class Database {
 
     if (user) {
       if (userData.name?.trim()) user.name = userData.name.trim();
+      if (userData.password) user.password = userData.password;
+      if (userData.phone) user.phone = userData.phone;
       if (isAdmin) {
         user.role = 'admin';
         user.token = 'aura-admin-secret-token-7749';
@@ -285,7 +287,9 @@ class Database {
       email: cleanEmail,
       name: userData.name?.trim() || (isAdmin ? 'Luka Tavadze (Admin)' : cleanEmail.split('@')[0]),
       role: isAdmin ? 'admin' : 'customer',
-      token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now()
+      token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now(),
+      password: userData.password,
+      phone: userData.phone
     };
 
     this.data.users.push(user);
@@ -304,7 +308,8 @@ class Database {
         email: cleanEmail,
         name: name?.trim() || (isAdmin ? 'Luka Tavadze (Admin)' : cleanEmail.split('@')[0]),
         role: isAdmin ? 'admin' : 'customer',
-        token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now()
+        token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now(),
+        password: password
       };
       this.data.users.push(user);
       this.saveData(this.data);
@@ -318,6 +323,9 @@ class Database {
       }
       if (name && name.trim() && (!isAdmin || name !== cleanEmail.split('@')[0])) {
         user.name = name.trim();
+      }
+      if (password) {
+        user.password = password;
       }
       this.saveData(this.data);
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   User as UserIcon, 
@@ -14,7 +14,8 @@ import {
   KeyRound, 
   ShoppingBag, 
   Heart,
-  Phone
+  Phone,
+  Key
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
@@ -55,6 +56,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   
   // Google prompt state
   const [googleEmail, setGoogleEmail] = useState('');
@@ -65,11 +67,51 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Attempt auto-credential retrieval with Google Password Manager / Credential Management API
+  useEffect(() => {
+    if (isOpen && !currentUser && typeof window !== 'undefined' && 'credentials' in navigator) {
+      try {
+        navigator.credentials.get({
+          // @ts-ignore
+          password: true,
+          mediation: 'silent'
+        }).then((cred: any) => {
+          if (cred && cred.id) {
+            setEmail(cred.id);
+            if (cred.password) {
+              setPassword(cred.password);
+            }
+          }
+        }).catch(() => {
+          // Silent catch if user dismissed or not supported
+        });
+      } catch {
+        // Ignore
+      }
+    }
+  }, [isOpen, currentUser]);
+
   if (!isOpen) return null;
 
   const resetMessages = () => {
     setError('');
     setSuccessMessage('');
+  };
+
+  // Trigger Google Password Manager native save prompt
+  const triggerGooglePasswordSave = (userEmail: string, userPass: string, userName?: string) => {
+    try {
+      if (typeof window !== 'undefined' && 'PasswordCredential' in window && navigator.credentials) {
+        const cred = new (window as any).PasswordCredential({
+          id: userEmail.trim(),
+          password: userPass,
+          name: userName?.trim() || undefined
+        });
+        navigator.credentials.store(cred).catch(() => {});
+      }
+    } catch {
+      // Ignore if browser restricts or denies
+    }
   };
 
   // Sign In Handler
@@ -83,14 +125,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
     setLoading(true);
     resetMessages();
 
-    const res = await login(email.trim(), name.trim() || undefined, password || undefined);
+    const cleanEmail = email.trim();
+    const res = await login(cleanEmail, name.trim() || undefined, password || undefined);
     setLoading(false);
 
     if (res.success) {
-      setSuccessMessage('Signed in successfully!');
+      // Trigger Google Password Manager save prompt
+      if (password) {
+        triggerGooglePasswordSave(cleanEmail, password, name);
+      }
+
+      setSuccessMessage('Signed in successfully! Credentials saved.');
       setTimeout(() => {
-        // If administrator, automatically launch Admin Hub
-        if (email.trim().toLowerCase() === 'tavadzeluka520@gmail.com') {
+        if (cleanEmail.toLowerCase() === 'tavadzeluka520@gmail.com') {
           onClose();
           onOpenAdmin();
         } else {
@@ -117,8 +164,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
     setLoading(true);
     resetMessages();
 
+    const cleanEmail = email.trim();
     const res = await register({
-      email: email.trim(),
+      email: cleanEmail,
       name: name.trim(),
       password: password || undefined,
       phone: phone.trim() || undefined
@@ -127,9 +175,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
     setLoading(false);
 
     if (res.success) {
-      setSuccessMessage('Account created successfully! Welcome to AURA.');
+      // Trigger Google Password Manager save prompt
+      if (password) {
+        triggerGooglePasswordSave(cleanEmail, password, name.trim());
+      }
+
+      setSuccessMessage('Account created and credentials saved! Welcome to AURA.');
       setTimeout(() => {
-        if (email.trim().toLowerCase() === 'tavadzeluka520@gmail.com') {
+        if (cleanEmail.toLowerCase() === 'tavadzeluka520@gmail.com') {
           onClose();
           onOpenAdmin();
         } else {
@@ -152,13 +205,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
     setLoading(true);
     resetMessages();
 
-    const res = await loginWithGoogle(googleEmail.trim(), googleName.trim() || undefined);
+    const cleanGoogleEmail = googleEmail.trim();
+    const res = await loginWithGoogle(cleanGoogleEmail, googleName.trim() || undefined);
     setLoading(false);
 
     if (res.success) {
-      setSuccessMessage('Signed in with Google!');
+      setSuccessMessage('Signed in with Google automatically!');
       setTimeout(() => {
-        if (googleEmail.trim().toLowerCase() === 'tavadzeluka520@gmail.com') {
+        if (cleanGoogleEmail.toLowerCase() === 'tavadzeluka520@gmail.com') {
           onClose();
           onOpenAdmin();
         } else {
@@ -307,7 +361,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
           </div>
         ) : mode === 'google-prompt' ? (
           /* GOOGLE SIGN IN / REGISTRATION PROMPT */
-          <form onSubmit={handleGoogleSubmit} className="space-y-5">
+          <form 
+            name="google-auth-form"
+            method="post"
+            action="#"
+            onSubmit={handleGoogleSubmit} 
+            className="space-y-5"
+            autoComplete="on"
+          >
             <div className="text-center pb-1">
               <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                 <GoogleIcon />
@@ -325,15 +386,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
                 {error}
               </div>
             )}
+            {successMessage && (
+              <div className="p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs">
+                {successMessage}
+              </div>
+            )}
 
             <div className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-300 block mb-1 font-medium">Google Email</label>
+                <label htmlFor="google-email-input" className="text-slate-300 block mb-1 font-medium">Google Email</label>
                 <div className="relative">
                   <input
+                    id="google-email-input"
+                    name="username"
                     type="email"
                     required
                     autoFocus
+                    autoComplete="username email"
                     value={googleEmail}
                     onChange={e => setGoogleEmail(e.target.value)}
                     placeholder="e.g. yourname@gmail.com"
@@ -344,10 +413,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
               </div>
 
               <div>
-                <label className="text-slate-300 block mb-1 font-medium">Your Name (Optional)</label>
+                <label htmlFor="google-name-input" className="text-slate-300 block mb-1 font-medium">Your Name (Optional)</label>
                 <div className="relative">
                   <input
+                    id="google-name-input"
+                    name="name"
                     type="text"
+                    autoComplete="name"
                     value={googleName}
                     onChange={e => setGoogleName(e.target.value)}
                     placeholder="e.g. Alex Hunter"
@@ -501,20 +573,31 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
 
             <div className="flex items-center gap-3 my-2 text-[10px] uppercase font-mono tracking-widest text-slate-500 justify-center">
               <span className="h-px bg-white/10 flex-1" />
-              <span>Or with email</span>
+              <span>Or with email & password</span>
               <span className="h-px bg-white/10 flex-1" />
             </div>
 
-            {/* FORM */}
-            <form onSubmit={mode === 'signin' ? handleSignIn : handleRegister} className="space-y-3.5 text-xs">
+            {/* FORM WITH GOOGLE PASSWORD MANAGER & AUTOCOMPLETE INTEGRATION */}
+            <form 
+              name="user-credentials-form"
+              id="user-credentials-form"
+              method="post"
+              action="#"
+              autoComplete="on"
+              onSubmit={mode === 'signin' ? handleSignIn : handleRegister} 
+              className="space-y-3.5 text-xs"
+            >
               {/* Name Field (Only in Register mode) */}
               {mode === 'register' && (
                 <div className="animate-in fade-in">
-                  <label className="text-slate-300 block mb-1 font-medium">Full Name</label>
+                  <label htmlFor="auth-name" className="text-slate-300 block mb-1 font-medium">Full Name</label>
                   <div className="relative">
                     <input
+                      id="auth-name"
+                      name="name"
                       type="text"
                       required
+                      autoComplete="name"
                       value={name}
                       onChange={e => setName(e.target.value)}
                       placeholder="e.g. Luka or John Doe"
@@ -525,13 +608,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
                 </div>
               )}
 
-              {/* Email Field */}
+              {/* Email / Username Field */}
               <div>
-                <label className="text-slate-300 block mb-1 font-medium">Email Address</label>
+                <label htmlFor="auth-email" className="text-slate-300 block mb-1 font-medium">Email Address</label>
                 <div className="relative">
                   <input
+                    id="auth-email"
+                    name="username"
                     type="email"
                     required
+                    autoComplete="username email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     placeholder="name@example.com"
@@ -541,24 +627,35 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
                 </div>
               </div>
 
-              {/* Password Field */}
+              {/* Password Field (Supported by Google Password Manager) */}
               <div>
-                <label className="text-slate-300 block mb-1 font-medium">
-                  {mode === 'signin' ? 'Password' : 'Create Password'}
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label htmlFor="auth-password" className="text-slate-300 font-medium">
+                    {mode === 'signin' ? 'Password' : 'Create Password'}
+                  </label>
+                  <span className="text-[10px] text-cyan-400/80 font-mono flex items-center gap-1">
+                    <Key className="w-2.5 h-2.5" />
+                    <span>Auto-saved to Google</span>
+                  </span>
+                </div>
                 <div className="relative">
                   <input
+                    id="auth-password"
+                    name="password"
                     type={showPassword ? 'text' : 'password'}
+                    required={mode === 'register'}
+                    autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    placeholder={mode === 'signin' ? 'Enter password (optional)' : 'Minimum 6 characters'}
+                    placeholder={mode === 'signin' ? 'Enter your password' : 'Create strong password'}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 pl-10 pr-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                   />
                   <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-slate-400 hover:text-white"
+                    className="absolute right-3 top-3 text-slate-400 hover:text-white cursor-pointer"
+                    aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -568,10 +665,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
               {/* Phone Field (Optional in register mode) */}
               {mode === 'register' && (
                 <div className="animate-in fade-in">
-                  <label className="text-slate-300 block mb-1 font-medium">Phone Number (Optional)</label>
+                  <label htmlFor="auth-phone" className="text-slate-300 block mb-1 font-medium">Phone Number (Optional)</label>
                   <div className="relative">
                     <input
+                      id="auth-phone"
+                      name="tel"
                       type="tel"
+                      autoComplete="tel"
                       value={phone}
                       onChange={e => setPhone(e.target.value)}
                       placeholder="+1 (555) 000-0000"
@@ -582,6 +682,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
                 </div>
               )}
 
+              {/* Automatic Save & Remember Me Toggle */}
+              <div className="flex items-center justify-between pt-1">
+                <label className="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    checked={rememberMe}
+                    onChange={e => setRememberMe(e.target.checked)}
+                    className="w-4 h-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/50 cursor-pointer"
+                  />
+                  <span>Save password & auto-login (ავტომატური)</span>
+                </label>
+              </div>
+
               {/* Submit Button */}
               <button
                 type="submit"
@@ -590,10 +704,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenAdm
               >
                 <span>
                   {loading
-                    ? 'Processing...'
+                    ? 'Saving & Authenticating...'
                     : mode === 'signin'
-                    ? 'Sign In to Account'
-                    : 'Create Free Account'}
+                    ? 'Sign In & Save Password'
+                    : 'Create Free Account & Save'}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </button>

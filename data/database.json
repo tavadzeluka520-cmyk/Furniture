@@ -1304,6 +1304,14 @@
       "name": "New User",
       "role": "customer",
       "token": "cust-tok-1790227027272"
+    },
+    {
+      "id": "user-1790227717776-7rmf",
+      "email": "alex.rivers@gmail.com",
+      "name": "Alex Rivers",
+      "role": "customer",
+      "token": "cust-tok-1790227717776",
+      "password": "SecurePassword99!"
     }
   ]
 }
