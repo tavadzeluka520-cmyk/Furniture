@@ -265,11 +265,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onNavigateSection }
             {isAdmin && (
               <button
                 onClick={onOpenAdmin}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:brightness-110 transition-all cursor-pointer animate-in fade-in"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-black font-extrabold text-xs shadow-[0_0_20px_rgba(0,240,255,0.45)] hover:brightness-110 active:scale-98 transition-all cursor-pointer animate-in fade-in"
                 title="Administrator Command Center"
               >
-                <ShieldCheck className="w-4 h-4 text-black" />
-                <span>Admin Hub</span>
+                <ShieldCheck className="w-4 h-4 text-black shrink-0" />
+                <span className="hidden xs:inline sm:inline">Admin Hub</span>
               </button>
             )}
 
@@ -278,10 +278,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onNavigateSection }
               onClick={() => setIsAuthModalOpen(true)}
               className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
                 currentUser 
-                  ? 'bg-cyan-500/10 border-cyan-400/40 text-cyan-400 shadow-[0_0_12px_rgba(0,240,255,0.2)]' 
+                  ? 'bg-cyan-500/15 border-cyan-400/50 text-cyan-300 shadow-[0_0_15px_rgba(0,240,255,0.3)]' 
                   : 'bg-white/5 border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/30'
               }`}
-              title={currentUser ? `Signed in as ${currentUser.name}` : 'Sign In'}
+              title={currentUser ? (isAdmin ? 'Logged in as Administrator' : `Signed in as ${currentUser.name}`) : 'Sign In / Register'}
             >
               <UserIcon className="w-5 h-5" />
             </button>

@@ -447,8 +447,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose }) => {
           <ShieldAlert className="w-12 h-12 text-rose-500 mx-auto" />
           <h2 className="text-xl font-bold text-white">Access Denied</h2>
           <p className="text-xs text-slate-300">
-            This private Admin Hub is strictly restricted to administrator: <br />
-            <span className="font-mono text-cyan-400 font-bold">tavadzeluka520@gmail.com</span>
+            This private Admin Command Center is strictly restricted to authorized administrators.
+            Please sign in with your store administrator account to continue.
           </p>
           <button
             onClick={onClose}

@@ -92,6 +92,11 @@ export interface User {
   name: string;
   role: 'admin' | 'customer';
   token?: string;
+  password?: string;
+  phone?: string;
+  provider?: 'google' | 'email';
+  avatar?: string;
+  createdAt?: string;
 }
 
 export interface Order {

@@ -1285,18 +1285,25 @@
       "token": "aura-admin-secret-token-7749"
     },
     {
-      "id": "admin-2",
-      "email": "tavadzeluka520@gmail.com",
-      "name": "Luka Tavadze (Admin)",
-      "role": "admin",
-      "token": "aura-admin-secret-token-7749"
-    },
-    {
       "id": "user-1790143525559",
       "email": "tavadzeluka38@gmail.com",
       "name": "reali2009",
       "role": "customer",
       "token": "cust-tok-1790143525559"
+    },
+    {
+      "id": "user-1790227020563-87b5",
+      "email": "customer_test@example.com",
+      "name": "Test Customer",
+      "role": "customer",
+      "token": "cust-tok-1790227020563"
+    },
+    {
+      "id": "user-1790227027272-bgb2",
+      "email": "someone.new@gmail.com",
+      "name": "New User",
+      "role": "customer",
+      "token": "cust-tok-1790227027272"
     }
   ]
 }

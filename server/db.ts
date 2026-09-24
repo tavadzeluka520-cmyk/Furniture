@@ -257,24 +257,68 @@ class Database {
     return this.data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
   }
 
-  createOrLoginUser(email: string, name?: string): User {
+  getUserByToken(token: string): User | undefined {
+    return this.data.users.find(u => u.token === token);
+  }
+
+  getUsers(): User[] {
+    return this.data.users;
+  }
+
+  registerUser(userData: { email: string; name?: string; password?: string; phone?: string }): User {
+    const cleanEmail = userData.email.trim().toLowerCase();
+    let user = this.getUserByEmail(cleanEmail);
+    const isAdmin = isAuthorizedAdmin(cleanEmail);
+
+    if (user) {
+      if (userData.name?.trim()) user.name = userData.name.trim();
+      if (isAdmin) {
+        user.role = 'admin';
+        user.token = 'aura-admin-secret-token-7749';
+      }
+      this.saveData(this.data);
+      return user;
+    }
+
+    user = {
+      id: 'user-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
+      email: cleanEmail,
+      name: userData.name?.trim() || (isAdmin ? 'Luka Tavadze (Admin)' : cleanEmail.split('@')[0]),
+      role: isAdmin ? 'admin' : 'customer',
+      token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now()
+    };
+
+    this.data.users.push(user);
+    this.saveData(this.data);
+    return user;
+  }
+
+  createOrLoginUser(email: string, name?: string, password?: string): User {
     const cleanEmail = email.trim().toLowerCase();
     let user = this.getUserByEmail(cleanEmail);
     const isAdmin = isAuthorizedAdmin(cleanEmail);
 
     if (!user) {
       user = {
-        id: 'user-' + Date.now(),
+        id: 'user-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
         email: cleanEmail,
-        name: name || (isAdmin ? 'Luka Tavadze (Admin)' : cleanEmail.split('@')[0]),
+        name: name?.trim() || (isAdmin ? 'Luka Tavadze (Admin)' : cleanEmail.split('@')[0]),
         role: isAdmin ? 'admin' : 'customer',
         token: isAdmin ? 'aura-admin-secret-token-7749' : 'cust-tok-' + Date.now()
       };
       this.data.users.push(user);
       this.saveData(this.data);
-    } else if (isAdmin && user.role !== 'admin') {
-      user.role = 'admin';
-      user.token = 'aura-admin-secret-token-7749';
+    } else {
+      if (isAdmin) {
+        user.role = 'admin';
+        user.token = 'aura-admin-secret-token-7749';
+        if (!user.name || user.name === cleanEmail.split('@')[0]) {
+          user.name = 'Luka Tavadze (Admin)';
+        }
+      }
+      if (name && name.trim() && (!isAdmin || name !== cleanEmail.split('@')[0])) {
+        user.name = name.trim();
+      }
       this.saveData(this.data);
     }
 

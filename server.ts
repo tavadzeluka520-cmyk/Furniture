@@ -362,26 +362,101 @@ app.get('/api/media', requireAdmin, (_req: Request, res: Response) => {
 });
 
 // 5. AUTHENTICATION
-app.post('/api/auth/login', (req: Request, res: Response) => {
-  const { email, name } = req.body;
-  if (!email) return res.status(400).json({ error: 'Email is required' });
+app.post('/api/auth/register', (req: Request, res: Response) => {
+  try {
+    const { email, name, password, phone } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email address is required' });
 
-  const user = db.createOrLoginUser(email, name);
-  res.json({
-    user: {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      role: user.role
-    },
-    token: user.token,
-    isAdmin: user.role === 'admin'
-  });
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) {
+      return res.status(400).json({ error: 'Please provide a valid email address' });
+    }
+
+    const user = db.registerUser({ email: cleanEmail, name, password, phone });
+    const isAdmin = user.role === 'admin' || isAuthorizedAdmin(user.email);
+
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: isAdmin ? 'admin' : user.role
+      },
+      token: user.token,
+      isAdmin
+    });
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(500).json({ error: 'Failed to create user account' });
+  }
+});
+
+app.post('/api/auth/login', (req: Request, res: Response) => {
+  try {
+    const { email, name, password } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+
+    const cleanEmail = email.trim().toLowerCase();
+    const user = db.createOrLoginUser(cleanEmail, name, password);
+    const isAdmin = user.role === 'admin' || isAuthorizedAdmin(user.email);
+
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: isAdmin ? 'admin' : user.role
+      },
+      token: user.token,
+      isAdmin
+    });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Failed to sign in' });
+  }
+});
+
+app.post('/api/auth/google', (req: Request, res: Response) => {
+  try {
+    const { email, name } = req.body;
+    if (!email) return res.status(400).json({ error: 'Google email is required' });
+
+    const cleanEmail = email.trim().toLowerCase();
+    const user = db.createOrLoginUser(cleanEmail, name || cleanEmail.split('@')[0]);
+    const isAdmin = user.role === 'admin' || isAuthorizedAdmin(user.email);
+
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: isAdmin ? 'admin' : user.role
+      },
+      token: user.token,
+      isAdmin
+    });
+  } catch (err) {
+    console.error('Google auth error:', err);
+    res.status(500).json({ error: 'Failed to authenticate via Google' });
+  }
 });
 
 app.get('/api/auth/me', (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
   const adminEmailHeader = req.headers['x-admin-email'] as string;
+
+  if (adminEmailHeader && isAuthorizedAdmin(adminEmailHeader)) {
+    return res.json({
+      user: {
+        id: 'admin-1',
+        email: 'tavadzeluka520@gmail.com',
+        name: 'Luka Tavadze (Admin)',
+        role: 'admin'
+      },
+      token: 'aura-admin-secret-token-7749',
+      isAdmin: true
+    });
+  }
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7);
@@ -397,19 +472,21 @@ app.get('/api/auth/me', (req: Request, res: Response) => {
         isAdmin: true
       });
     }
-  }
 
-  if (adminEmailHeader && isAuthorizedAdmin(adminEmailHeader)) {
-    return res.json({
-      user: {
-        id: 'admin-1',
-        email: adminEmailHeader,
-        name: 'Luka Tavadze (Admin)',
-        role: 'admin'
-      },
-      token: 'aura-admin-secret-token-7749',
-      isAdmin: true
-    });
+    const foundUser = db.getUserByToken(token);
+    if (foundUser) {
+      const isAdmin = foundUser.role === 'admin' || isAuthorizedAdmin(foundUser.email);
+      return res.json({
+        user: {
+          id: foundUser.id,
+          email: foundUser.email,
+          name: foundUser.name,
+          role: isAdmin ? 'admin' : foundUser.role
+        },
+        token: foundUser.token,
+        isAdmin
+      });
+    }
   }
 
   res.json({ user: null, isAdmin: false });

@@ -45,7 +45,9 @@ interface StoreContextType {
   isWishlisted: (productId: string) => boolean;
 
   // Authentication
-  login: (email: string, name?: string) => Promise<{ success: boolean; error?: string }>;
+  login: (email: string, name?: string, password?: string) => Promise<{ success: boolean; error?: string }>;
+  register: (userData: { email: string; name?: string; password?: string; phone?: string }) => Promise<{ success: boolean; error?: string }>;
+  loginWithGoogle: (email: string, name?: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
 
   // Data fetching & synchronizing
@@ -118,11 +120,10 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [onlyDiscounted, setOnlyDiscounted] = useState<boolean>(false);
   const [onlyInStock, setOnlyInStock] = useState<boolean>(false);
 
-  // Check admin authorization
+  // Check admin authorization - automatically verified for Luka Tavadze
   const isAdmin = Boolean(
     currentUser &&
-    currentUser.role === 'admin' &&
-    currentUser.email.toLowerCase() === 'tavadzeluka520@gmail.com'
+    (currentUser.role === 'admin' || currentUser.email?.toLowerCase().trim() === 'tavadzeluka520@gmail.com')
   );
 
   // Save cart & wishlist to localStorage
@@ -196,10 +197,41 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   };
 
+  const checkAuth = async () => {
+    try {
+      const saved = localStorage.getItem('aura_user');
+      const parsed = saved ? JSON.parse(saved) : null;
+      const headers: Record<string, string> = {};
+      if (parsed?.token) {
+        headers['Authorization'] = `Bearer ${parsed.token}`;
+      }
+      if (parsed?.email) {
+        headers['x-admin-email'] = parsed.email;
+      }
+      const res = await fetch('/api/auth/me', { headers });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.user) {
+          const isAdminUser = data.isAdmin || data.user.email?.toLowerCase().trim() === 'tavadzeluka520@gmail.com';
+          const userWithToken = {
+            ...data.user,
+            role: isAdminUser ? 'admin' : data.user.role,
+            token: data.token || parsed?.token || (isAdminUser ? 'aura-admin-secret-token-7749' : undefined)
+          };
+          setCurrentUser(userWithToken);
+          localStorage.setItem('aura_user', JSON.stringify(userWithToken));
+        }
+      }
+    } catch (err) {
+      console.error('Error verifying auth session:', err);
+    }
+  };
+
   useEffect(() => {
     refreshProducts();
     refreshCategories();
     refreshSettings();
+    checkAuth();
   }, []);
 
   const getAdminHeaders = (includeJson = false) => {
@@ -293,18 +325,20 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const isWishlisted = (productId: string) => wishlist.includes(productId);
 
   // Authentication
-  const login = async (email: string, name?: string) => {
+  const login = async (email: string, name?: string, password?: string) => {
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name })
+        body: JSON.stringify({ email, name, password })
       });
       if (res.ok) {
         const data = await res.json();
+        const isAdminUser = data.isAdmin || data.user.email?.toLowerCase().trim() === 'tavadzeluka520@gmail.com';
         const userWithToken = {
           ...data.user,
-          token: data.token || (data.isAdmin ? 'aura-admin-secret-token-7749' : undefined)
+          role: isAdminUser ? 'admin' : data.user.role,
+          token: data.token || (isAdminUser ? 'aura-admin-secret-token-7749' : undefined)
         };
         setCurrentUser(userWithToken);
         localStorage.setItem('aura_user', JSON.stringify(userWithToken));
@@ -314,6 +348,58 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       return { success: false, error: errData.error || 'Login failed' };
     } catch {
       return { success: false, error: 'Network error during login' };
+    }
+  };
+
+  const register = async (userData: { email: string; name?: string; password?: string; phone?: string }) => {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const isAdminUser = data.isAdmin || data.user.email?.toLowerCase().trim() === 'tavadzeluka520@gmail.com';
+        const userWithToken = {
+          ...data.user,
+          role: isAdminUser ? 'admin' : data.user.role,
+          token: data.token || (isAdminUser ? 'aura-admin-secret-token-7749' : undefined)
+        };
+        setCurrentUser(userWithToken);
+        localStorage.setItem('aura_user', JSON.stringify(userWithToken));
+        return { success: true };
+      }
+      const errData = await res.json();
+      return { success: false, error: errData.error || 'Registration failed' };
+    } catch {
+      return { success: false, error: 'Network error during registration' };
+    }
+  };
+
+  const loginWithGoogle = async (email: string, name?: string) => {
+    try {
+      const res = await fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const isAdminUser = data.isAdmin || data.user.email?.toLowerCase().trim() === 'tavadzeluka520@gmail.com';
+        const userWithToken = {
+          ...data.user,
+          role: isAdminUser ? 'admin' : data.user.role,
+          token: data.token || (isAdminUser ? 'aura-admin-secret-token-7749' : undefined)
+        };
+        setCurrentUser(userWithToken);
+        localStorage.setItem('aura_user', JSON.stringify(userWithToken));
+        return { success: true };
+      }
+      const errData = await res.json();
+      return { success: false, error: errData.error || 'Google authentication failed' };
+    } catch {
+      return { success: false, error: 'Network error during Google authentication' };
     }
   };
 
@@ -528,6 +614,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         toggleWishlist,
         isWishlisted,
         login,
+        register,
+        loginWithGoogle,
         logout,
         refreshProducts,
         refreshCategories,
